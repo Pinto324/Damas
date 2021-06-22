@@ -1,19 +1,23 @@
 
-package Jugador;
+package src.Jugador;
+
+import src.Menu.IngresarDatos;
 
 public class Jugador {
     private String Nombre;
+    private int Id;
     private int Victorias;
     private int Derrotas;
-    private String FormaFicha;
-    private static int[][] Fichas;
-
-    public Jugador(String Nombre, int Victorias, int Derrotas, String FormaFicha) {
+    private String Color;
+    private IngresarDatos Datos;
+    private int ContadorJugadores = 1;
+    
+    public Jugador(String Nombre, int id, int Victorias, int Derrotas, String Color) {
         this.Nombre = Nombre;
+        this.Id = id;
         this.Victorias = Victorias;
         this.Derrotas = Derrotas;
-        this.FormaFicha = FormaFicha;
-        LlenarFichas();
+        this.Color = Color;
     }
 
     public String getNombre() {
@@ -41,66 +45,35 @@ public class Jugador {
     }
 
     public String getFormaFicha() {
-        return FormaFicha;
+        return Color;
     }
 
     public void setFormaFicha(String FormaFicha) {
-        this.FormaFicha = FormaFicha;
+        this.Color = FormaFicha;
     }
 
-    public static int[][] getFichas() {
-        return Fichas;
+    public int getId() {
+        return Id;
     }
 
-    public static void setFichas(int[][] Fichas) {
-        Jugador.Fichas = Fichas;
+    public void setId(int Id) {
+        this.Id = Id;
     }
     
-    public void LlenarFichas(){
-        this.Fichas = new int[8][8];
-        for (int x = 0; x < this.Fichas.length; x++) {
-            for (int y = 0; y < Fichas.length; y++) {
-                if(x == 0||x==1||x==2){
-                    if(x == 1){
-                        if(!(y%2==0)){
-                            Fichas[x][y] = -1;
-                        }else{
-                            Fichas[x][y] = 0;
-                        }
-                    }else{
-                        if(y%2==0){
-                            Fichas[x][y] = -1;
-                        }else{
-                            Fichas[x][y] = 0;
-                        }
-                    }
-                
-                }else if(x==7||x==6||x==5){
-                    if(x==6){
-                        if(y%2==0){
-                            Fichas[x][y] = 1;
-                        }else{
-                            Fichas[x][y] = 0;
-                        }
-                    }else{
-                        if(!(y%2==0)){
-                            Fichas[x][y] = 1;
-                        }else{
-                            Fichas[x][y] = 0;
-                        }
-                    }
-                }else{
-                    Fichas[x][y] = 0;
-                }
-            }   
+    public String datosJugador(){
+        String tmp = ("Id: "+ContadorJugadores+"  Jugador: " + Nombre + " Partidas Ganadas: " + Victorias + " Partidas Perdidas: " + Derrotas);
+        ContadorJugadores++;
+        return tmp;  
+    }
+    
+    public void listadoJugadores(Jugador[] listadoJugadores){
+        for (int i = 0; i < listadoJugadores.length; i++) {
+            if (listadoJugadores[i]!=null) {
+                System.out.println(listadoJugadores[i].datosJugador());
+            }else{
+                System.out.println("Espacio Disponible");
+            }
         }
     }
     
-    public void ImprimirFichas(){
-        for (int x = 0; x < this.Fichas.length; x++) {
-            for (int y = 0; y < Fichas.length; y++) {
-                System.out.println("posicion: "+x+" "+y+" "+Fichas[x][y]);
-            }
-        }    
-    }
 }
